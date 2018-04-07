@@ -7,7 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import database_exists, create_database, drop_database
 from werkzeug.exceptions import BadRequest
 
-from helpers import *
 
 """
 BARE MINIMUM FLASK APP AND DB OBJECT CREATION
@@ -27,7 +26,7 @@ class Customers(db.Model):
     phone_number = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
-    email = db.Column(dbring(120), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
 
     def __repr__(self):
         return '<phone_number %r>' % self.phone_number
