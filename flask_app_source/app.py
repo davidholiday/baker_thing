@@ -27,6 +27,9 @@ class Customers(db.Model):
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), nullable=False)
+    points = db.Column(db.Integer, nullable=False, default=0)
+    logins = db.Column(db.Integer, nullable=False, default=0)
+    last_login = dbColumn(db.DateTime) # TODO make sure all times are GMT!
 
     def __repr__(self):
         return '<phone_number %r>' % self.phone_number

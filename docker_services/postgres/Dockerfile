@@ -1,5 +1,5 @@
 FROM postgres
-MAINTAINER David Holiday <epicdave@gmail.com>
+MAINTAINER David Holiday
 
 # PROVISION WITH REQUIRED PACKAGES
 #

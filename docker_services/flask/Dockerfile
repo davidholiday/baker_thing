@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-MAINTAINER David Holiday <epicdave@gmail.com>
+MAINTAINER David Holiday
 
 
 RUN apt-get update -y
