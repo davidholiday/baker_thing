@@ -1,6 +1,6 @@
 
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import database_exists, create_database, drop_database
 from werkzeug.exceptions import BadRequest
@@ -36,6 +36,7 @@ class Customers(db.Model):
         return '<phone_number %r>' % self.phone_number
 
 
+
 """
 ROUTES
 """
@@ -48,7 +49,7 @@ API_AND_VERSION = '/api/v1'
 @app.route('/')
 def hello_world():
     app.logger.info('foo')
-    return 'Flask Dockerized'
+    return render_template('index.html', tag='fuckface')
 
 
 checkin_route = API_AND_VERSION + '/checkin'
@@ -84,12 +85,12 @@ def checkin():
 
 
 """
-MAKE IT SO!
+ENGAGE!
 https://www.youtube.com/watch?v=TCqH26PzUvA
 """
 if __name__ == '__main__':
 
-    # non-destructively create db and tb tables if they don't exist
+    # non-destructively create db table(s) if they don't exist
     if not database_exists(app.config['SQLALCHEMY_DATABASE_URI']):
         create_database(app.config['SQLALCHEMY_DATABASE_URI'])
 
