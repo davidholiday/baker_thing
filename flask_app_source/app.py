@@ -1,5 +1,3 @@
-# all in one mvp for shortlie
-# know that if I had more than an hour I probably wouldn't do an all-in-one thing like this...
 
 
 from flask import Flask
@@ -8,12 +6,14 @@ from sqlalchemy_utils import database_exists, create_database, drop_database
 from werkzeug.exceptions import BadRequest
 
 
+
 """
 BARE MINIMUM FLASK APP AND DB OBJECT CREATION
 """
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@postgres/db1'
 db = SQLAlchemy(app)
+
 
 
 """
@@ -28,8 +28,8 @@ class Customers(db.Model):
     last_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     points = db.Column(db.Integer, nullable=False, default=0)
-    logins = db.Column(db.Integer, nullable=False, default=0)
-    last_login = dbColumn(db.DateTime) # TODO make sure all times are GMT!
+    checkins = db.Column(db.Integer, nullable=False, default=0)
+    last_checkin = db.Column(db.DateTime) # TODO make sure all times are GMT!
 
     def __repr__(self):
         return '<phone_number %r>' % self.phone_number
@@ -46,7 +46,21 @@ API_VERSION = 1
 #
 @app.route('/')
 def hello_world():
+    app.logger.info('foo')
     return 'Flask Dockerized'
+
+
+@app.route('/checkin', methods=['POST'])
+def checkin():
+    # there's a much more sophisticated library to handle this sort of thing - but it's out of scope for this exercise.
+    # here we'll assume we're dealing with vanilla US numbers 555-555-5555 -- no special characters.
+
+    try:
+        phone_number = str(request.json['phone_number'])
+    except:
+        raise BadRequest
+
+    return phone_number
 
 
 
@@ -62,3 +76,4 @@ if __name__ == '__main__':
 
     db.create_all()
     app.run(debug=True,host='0.0.0.0')
+
