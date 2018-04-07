@@ -2,6 +2,7 @@
 
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 from sqlalchemy_utils import database_exists, create_database, drop_database
 from werkzeug.exceptions import BadRequest
 
@@ -13,6 +14,7 @@ BARE MINIMUM FLASK APP AND DB OBJECT CREATION
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@postgres/db1'
 db = SQLAlchemy(app)
+Bootstrap(app)
 
 
 
