@@ -4,6 +4,7 @@
 {% block styles %}
     {{super()}}
     <link rel="stylesheet" href="{{url_for('.static', filename='custom.css')}}">
+    <link rel="stylesheet" href="{{url_for('.static', filename='bootstrap_ubuntu_min.css')}}">
 {% endblock %}
 
 
@@ -13,9 +14,35 @@
 
 
 {% block navbar %}
-    <div class="navbar navbar-logo">
-        <img src="static/baker-cannabis-technology-logo_nav.png">
+    <!--<div class="navbar navbar-default">-->
+        <!--<div class="container-fluid">-->
+            <!--<div class="navbar-header">-->
+                <!--<a class="pull-left" href="#">-->
+                    <!--<img alt="Brand" src="static/baker-cannabis-technology-logo_nav.png">-->
+                <!--</a>-->
+                <!--<div class="name">-->
+                    <!--LOYALTY POINTS DISPENSARY-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+<div class="container">
+
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="logo pull-left" href="#"><img src="/static/baker-cannabis-technology-logo_nav.png"></a>
+      </div>
+        <div class="navbar-right name">
+            LOYALTY POINTS DISPENSARY
+        </div>
     </div>
+  </nav>
+</div>
+
+
 {% endblock %}
 
 
@@ -23,27 +50,44 @@
 
     <!-- cred to https://gist.github.com/bMinaise/7329874 -->
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
-                <h1 class="text-center login-title">Sign in to continue to Bootsnipp</h1>
-                <div class="account-wall">
-                    <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                        alt="">
-                    <form class="form-signin">
-                    <input type="text" class="form-control" placeholder="Email" required autofocus>
-                    <input type="password" class="form-control" placeholder="Password" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">
-                        Sign in</button>
-                    <label class="checkbox pull-left">
-                        <input type="checkbox" value="remember-me">
-                        Remember me
-                    </label>
-                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                    </form>
-                </div>
-                <a href="#" class="text-center new-account">Create an account </a>
+        <div class="panel panel-warning col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">
+                speak phone number, and enter
+            </h1>
+            <div class="account-wall">
+                <form class="form-signin">
+                <input type="text" class="form-control" placeholder="phone number (just digits please!)" required autofocus>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Sign in
+                </button>
+                </form>
             </div>
         </div>
     </div>
+
+    <!--&lt;!&ndash; cred to https://gist.github.com/bMinaise/7329874 &ndash;&gt;-->
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
+                <!--<h1 class="text-center login-title">Sign in to continue to Bootsnipp</h1>-->
+                <!--<div class="account-wall">-->
+                    <!--<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"-->
+                        <!--alt="">-->
+                    <!--<form class="form-signin">-->
+                    <!--<input type="text" class="form-control" placeholder="Email" required autofocus>-->
+                    <!--<input type="password" class="form-control" placeholder="Password" required>-->
+                    <!--<button class="btn btn-lg btn-primary btn-block" type="submit">-->
+                        <!--Sign in</button>-->
+                    <!--<label class="checkbox pull-left">-->
+                        <!--<input type="checkbox" value="remember-me">-->
+                        <!--Remember me-->
+                    <!--</label>-->
+                    <!--<a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>-->
+                    <!--</form>-->
+                <!--</div>-->
+                <!--<a href="#" class="text-center new-account">Create an account </a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
 {% endblock %}

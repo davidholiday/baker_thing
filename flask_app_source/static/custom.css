@@ -1,15 +1,16 @@
-.navbar-logo
-{
-    position: relative;
-    width: 170px;
-    left: 15px;
-    max-height: 70px;
+body {
+  margin: 20px;
 }
 
-.center {
-     float: none;
-     margin-left: auto;
-     margin-right: auto;
+.logo {
+  padding: 20px 20px 20px 20px;
+}
+
+.name {
+  font-size: 24px;
+  color: #333;
+    padding: 30px 20px 20px 100px;
+
 }
 
 
