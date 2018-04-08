@@ -207,7 +207,7 @@ def checkin():
         timestamp_last_checkin = customers_row_object.last_checkin
         minutes_since_last_checkin = (timestamp_now - timestamp_last_checkin).total_seconds() / 60
 
-        if minutes_since_last_checkin >= 0:
+        if minutes_since_last_checkin >= 5:
 
             # update points
             customers_row_object.checkins += 1
