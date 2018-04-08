@@ -1,0 +1,86 @@
+{% extends "bootstrap/base.html" %}
+
+
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('.static', filename='custom.css')}}">
+    <link rel="stylesheet" href="{{url_for('.static', filename='bootstrap_ubuntu_min.css')}}">
+{% endblock %}
+
+
+{% block title %}
+    David's thing for Baker
+{% endblock %}
+
+
+{% block navbar %}
+<div class="container">
+    <nav class="navbar navbar-default nav-extra">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="logo pull-left" target="_blank" href="https://www.youtube.com/watch?v=Y8JPXwst6P4"><img src="/static/baker-cannabis-technology-logo_nav.png"></a>
+            </div>
+            <div class="navbar-right name">
+                LOYALTY POINTS DISPENSARY
+            </div>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+<div class = "container">
+    <div class="message {{ message_bg }}">
+        <h2>
+            {{ message }}
+        </h2>
+    </div>
+</div>
+
+
+<!-- https://bootsnipp.com/snippets/featured/simple-login-form-bootsnipp-style-colorgraph -->
+<div class = "container">
+	<div class="wrapper">
+		<form action="/api/v1/registration" method="post" name="form-chekin" class="form-checkin">
+		    <h3 class="form-checkin-heading">loyalty program registration</h3>
+			    <hr class="colorgraph"><br>
+
+                    <input type="text"
+                         class="form-control"
+                         name="first_name"
+                         placeholder="first name"
+                         required
+                         autofocus
+                    />
+
+                    <input type="text"
+                         class="form-control"
+                         name="last_name"
+                         placeholder="last name"
+                         required
+                    />
+
+                    <input type="email"
+                         class="form-control"
+                         name="email"
+                         placeholder="email"
+                         required
+                    />
+
+                    <input type="text"
+                           class="form-control"
+                           name="phone_number"
+                           placeholder="phone number (digits only please!)"
+                           pattern="[0-9]{10}"
+                           oninput="setCustomValidity('')"
+                           oninvalid="setCustomValidity('*invalid format* if your number is (123)456-7890, enter 1234567890 (ty!)')"
+                           required
+                    />
+
+			  <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Submit" type="Submit">Submit</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

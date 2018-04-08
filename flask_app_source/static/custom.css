@@ -8,12 +8,14 @@ body {
 
 .name {
     font-size: 24px;
-    color: #333;
+    font-weight: 100 !important; /* this doesn't seem to be doing anything */
+    color: #7d7997;
     padding: 30px 20px 20px 100px;
 }
 
 .nav-extra {
     border: 3px dotted rgba(0,0,0,0.1);
+    /*background-color: #eee;*/
 }
 
 .message {
@@ -33,7 +35,7 @@ body {
   max-width: 420px;
   padding: 30px 38px 66px;
   margin: 0 auto;
-  background-color: #f8f8f8;
+  background-color: #eee; /*#f8f8f8;*/
   border-radius: 4px;
   border: 3px dotted rgba(0,0,0,0.1);
   }

@@ -52,6 +52,7 @@
                      name="phone_number"
                      placeholder="phone number (digits only please!)"
                      pattern="[0-9]{10}"
+                     oninput="setCustomValidity('')"
                      oninvalid="setCustomValidity('*invalid format* if your number is (123)456-7890, enter 1234567890 (ty!)')"
                      required
                      autofocus
