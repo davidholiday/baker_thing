@@ -1,6 +1,6 @@
 
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from sqlalchemy_utils import database_exists, create_database, drop_database
@@ -12,6 +12,7 @@ from werkzeug.exceptions import BadRequest
 BARE MINIMUM FLASK APP AND DB OBJECT CREATION
 """
 app = Flask(__name__)
+app.secret_key = "secret"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@postgres/db1'
 db = SQLAlchemy(app)
 Bootstrap(app)
@@ -50,8 +51,7 @@ API_AND_VERSION = '/api/v1'
 #
 @app.route('/')
 def hello_world():
-    app.logger.info('foo')
-    return render_template('index.html', tag='fuckface')
+    return render_template('index.html')
 
 
 checkin_route = API_AND_VERSION + '/checkin'
@@ -60,15 +60,14 @@ def checkin():
     # there's a much more sophisticated library to handle this sort of thing - but it's out of scope for this exercise.
     # here we'll assume we're dealing with vanilla US numbers 555-555-5555 -- no special characters.
 
-
+    app.logger.info(request.form)
     # validate caller supplied parameter(s)
     #
-    phone_number = ""
     try:
-        phone_number = str(request.json['phone_number'])
+        phone_number = str(request.form['phone_number'])
     except:
-        app.logger.error('missing phone_number key in payload or payload is not json')
-        raise BadRequest #TODO you're not going to use the built-in pages for this in the end...
+        app.logger.error('missing phone_number key in payload or payload is not form data')
+        raise BadRequest
 
     if len(phone_number) != 10 or phone_number.isdigit() == False:
         app.logger.error('phone_number must be ten digits with no special characters')
@@ -81,9 +80,7 @@ def checkin():
                                     .first()
 
     app.logger.info('customers_row_object is: {}'.format(customers_row_object))
-
-    return phone_number
-
+    return render_template('index.html', message=phone_number, message_bg="bg-danger")
 
 
 """
