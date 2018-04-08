@@ -143,7 +143,7 @@ def registration():
         message = 'thanks for registering! ' \
                   'you have checked in {} times, ' \
                   'you have {} points, ' \
-                  'and your last checking was at {}'.format(1, 50, timestamp )
+                  'and your last checkin was at {}'.format(1, 50, timestamp )
 
         template = 'index.html'
 
@@ -207,7 +207,7 @@ def checkin():
         timestamp_last_checkin = customers_row_object.last_checkin
         minutes_since_last_checkin = (timestamp_now - timestamp_last_checkin).total_seconds() / 60
 
-        if minutes_since_last_checkin >= 5:
+        if minutes_since_last_checkin >= 0:
 
             # update points
             customers_row_object.checkins += 1
@@ -220,9 +220,9 @@ def checkin():
             message = 'w00t! you just earned 20 loyalty points! ' \
                       'you have checked in {} times, ' \
                       'you now have {} points, ' \
-                      'and your last checking was at {}'.format(customers_row_object.checkins,
-                                                                customers_row_object.points,
-                                                                timestamp_now)
+                      'and your last checkin was at {}'.format(customers_row_object.checkins,
+                                                               customers_row_object.points,
+                                                               timestamp_now)
 
             msg = Message(message, recipients=[customers_row_object.email])
             mail.send(msg)
@@ -231,7 +231,7 @@ def checkin():
             message_bg = 'bg-danger'
 
             message = 'it has been {} minute(s) since you last checked in. ' \
-                      'you can only check in every five minutes!'.format(int(minutes_since_last_checkin))
+                      'you can only checkin every five minutes!'.format(int(minutes_since_last_checkin))
 
         template = 'index.html'
 
