@@ -1,28 +1,56 @@
-
+# simple loyalty point tracker
+# david holiday 08APR18
 
 
 import pytz
+
 from datetime import datetime
+
 from flask import Flask, request, render_template, flash
+
+from flask_mail import Mail, Message
+
 from flask_sqlalchemy import SQLAlchemy
+
 from flask_bootstrap import Bootstrap
+
 from sqlalchemy_utils import database_exists, create_database, drop_database
+
 from werkzeug.exceptions import BadRequest
 
 
 
+
 """
-BARE MINIMUM FLASK APP AND DB OBJECT CREATION
+BARE MINIMUM FLASK APP SETUP
 """
+
+# bootstraps the thing
 app = Flask(__name__)
 app.secret_key = "secret"
+
+# db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@postgres/db1'
 db = SQLAlchemy(app)
+
+# for flask bootstrap integration
 Bootstrap(app)
+
+# for flask mail
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_DEFAULT_SENDER'] = 'mr.baker.1919@gmail.com'
+app.config['MAIL_USERNAME'] = 'mr.baker.1919@gmail.com'
+app.config['MAIL_PASSWORD'] = '' #FIXME put password here!
+mail = Mail(app)
+
+
 
 
 """
-DB MODEL(S)
+DB MODEL
 """
 class Customers(db.Model):
     """
@@ -42,6 +70,7 @@ class Customers(db.Model):
 
 
 
+
 """
 ROUTES
 """
@@ -52,13 +81,22 @@ API_AND_VERSION = '/api/v1'
 
 @app.route('/')
 def root():
+    """
+    renders the index page for the caller
+
+    :return:
+    """
     return render_template('index.html')
 
 
 registration_route = API_AND_VERSION + '/registration'
 @app.route(registration_route, methods=['POST'])
 def registration():
+    """
+    target for registration form submit. will redirect back to index page when complete
 
+    :return:
+    """
 
     # grab caller supplied parameters (relying on client to validate)
     #
@@ -108,6 +146,12 @@ def registration():
                   'and your last checking was at {}'.format(1, 50, timestamp )
 
         template = 'index.html'
+
+        # send email
+        msg = Message(message, recipients=[email])
+        mail.send(msg)
+
+
     # the user can't access the registration page directly, so if they accidentally enter someone else's phone number
     # we need to tell them that.
     # FIXME make it so the phone number is pre-populated and can't be altered to prevent this situation
@@ -124,7 +168,12 @@ def registration():
 checkin_route = API_AND_VERSION + '/checkin'
 @app.route(checkin_route, methods=['POST'])
 def checkin():
+    """
+    target for checkin form submit. redirects either to index page or registration page depending on whether or not the
+    caller is registered
 
+    :return:
+    """
 
     # grab caller supplied parameter(s) (relying on client to validate)
     #
@@ -167,14 +216,16 @@ def checkin():
             db.session.commit()
 
 
-            # send email
-
+            # set message and send email
             message = 'w00t! you just earned 20 loyalty points! ' \
                       'you have checked in {} times, ' \
                       'you now have {} points, ' \
                       'and your last checking was at {}'.format(customers_row_object.checkins,
                                                                 customers_row_object.points,
                                                                 timestamp_now)
+
+            msg = Message(message, recipients=[customers_row_object.email])
+            mail.send(msg)
 
         else:
             message_bg = 'bg-danger'
@@ -185,6 +236,7 @@ def checkin():
         template = 'index.html'
 
     return render_template(template, message=message, message_bg=message_bg)
+
 
 
 
